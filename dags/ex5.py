@@ -36,7 +36,7 @@ t1 = PostgresToGoogleCloudStorageOperator(
     dag=dag
 )
 
-task_start = DummyOperator(task_id='start_task', dag=dag)
+t1
 
-
-task_start >> t1
+# task_start = DummyOperator(task_id='start_task', dag=dag)
+# task_start >> t1
