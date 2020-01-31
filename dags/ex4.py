@@ -46,7 +46,7 @@ for person in weekday_persons.values():
      person_tasks.append(DummyOperator(task_id=person, dag=dag))
 
 final_task = BashOperator(task_id='final_task', dag=dag, trigger_rule='one_success',
-    bash_command='echo "Hoi')
+    bash_command='echo "Hoi"')
 
 task_start >> branching >> person_tasks >> final_task
 
