@@ -48,5 +48,5 @@ for person in weekday_persons.values():
 final_task = BashOperator(task_id='final_task', dag=dag, trigger_rule='one_success',
     bash_command='echo "Hoi')
 
-task_start >> person_tasks >> final_task
+task_start >> branching >> person_tasks >> final_task
 
