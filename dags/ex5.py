@@ -32,7 +32,11 @@ t1 = PostgresToGoogleCloudStorageOperator(
     sql='select * from land_registry_price_paid_uk LIMIT 5',
     bucket='test_bucket_airflow',
     filename='postgres_dump.csv',
-    google_cloud_storage_conn_id='google_cloud_storage_default'
+    google_cloud_storage_conn_id='google_cloud_storage_default',
+    dag=dag
 )
 
-t1
+task_start = DummyOperator(task_id='start_task', dag=dag)
+
+
+task_start >> t1
