@@ -27,6 +27,7 @@ dag = DAG(
 )
 
 t1 = PostgresToGoogleCloudStorageOperator(
+    task_id='from_pg_to_gcs',
     postgres_conn_id='postgres_ex',
     sql='select * from land_registry_price_paid_uk LIMIT 5',
     bucket='test_bucket_airflow',
