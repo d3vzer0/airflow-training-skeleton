@@ -23,7 +23,7 @@ t1 = LaunchLibraryOperator(
     launch_conn_id='launchlibrary',
     endpoint='launch',
     params={"startdate":"{{ ds }}", "enddate": "{{ tomorrow_ds }}"},
-    result_bucket='mydata',
+    result_bucket='launchdata',
     result_key='/data/rocket_launches/ds{{ ds }}/launches.json',
     dag=dag
 )
