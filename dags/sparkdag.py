@@ -30,7 +30,6 @@ t1 = PostgresToGoogleCloudStorageOperator(
     dag=dag
 )
 
-
 t2 = HttpToGcsOperator(
     task_id='from_api_to_gcs',
     endpoint='history?start_at={{ yesterday_ds }}&end_at={{ ds }}&symbols=EUR&base=GBP',
