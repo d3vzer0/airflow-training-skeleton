@@ -30,9 +30,11 @@ class LaunchLibraryOperator(BaseOperator):
         http_object = HttpHook('GET', http_conn_id=self.launch_conn_id)
         http_response = http_object.run(self.endpoint, data=self.params)
         json_response = http_response.json()
-
+        with open('/tmp/rockets.json', 'w') as rocketsfile:
+            rocketsfile.write(json_response)
+    
         gcs_hook = GoogleCloudStorageHook()
-        gcs_hook.upload(bucket=self.result_bucket, filename=self.result_key, object=json_response)
+        gcs_hook.upload(bucket=self.result_bucket, object=self.result_key, filename='/tmp/rockets.json')
         print(self.params)
         print(self.args)
         print(self.kwargs)
