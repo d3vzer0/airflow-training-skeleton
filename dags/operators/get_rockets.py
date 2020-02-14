@@ -1,5 +1,5 @@
 # from airflow.plugins_manager import AirflowPlugin
-from airflow.models.baseoperator import BaseOperator
+# from airflow.models.baseoperator import BaseOperator
 from airflow.hooks.http_hook import HttpHook
 from airflow.utils.decorators import apply_defaults
 
