@@ -10,8 +10,8 @@ from datetime import datetime
 
 args = {
     'owner': 'JDreijer',
-    'start_date': datetime(2019-11-26),
-    'end_date': datetime(2019-11-28),
+    'start_date': datetime(2019, 11, 26),
+    'end_date': datetime(2019, 11, 28),
     'schedule_interval': '@daily'
 }
 
