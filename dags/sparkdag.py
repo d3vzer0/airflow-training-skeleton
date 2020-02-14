@@ -6,10 +6,13 @@ from airflow.models import DAG
 from airflow.contrib.operators.postgres_to_gcs_operator import PostgresToGoogleCloudStorageOperator
 from operators.http_to_gcs import HttpToGcsOperator
 import pendulum
+from datetime import datetime
 
 args = {
     'owner': 'JDreijer',
-    'start_date': airflow.utils.dates.days_ago(2),
+    'start_date': datetime(2019-11-26),
+    'end_date': datetime(2019-11-28),
+    'schedule_interval': '@daily'
 }
 
 dag = DAG(
@@ -18,7 +21,6 @@ dag = DAG(
     schedule_interval= None,
     dagrun_timeout=timedelta(minutes=60),
 )
-
 
 t1 = PostgresToGoogleCloudStorageOperator(
     task_id='from_pg_to_gcs',
