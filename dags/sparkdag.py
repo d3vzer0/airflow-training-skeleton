@@ -19,8 +19,6 @@ args = {
 dag = DAG(
     dag_id='sparkdag',
     default_args=args,
-    schedule_interval= None,
-    dagrun_timeout=timedelta(minutes=60),
 )
 
 t1 = PostgresToGoogleCloudStorageOperator(
