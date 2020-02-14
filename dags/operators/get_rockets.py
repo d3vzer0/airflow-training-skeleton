@@ -1,4 +1,4 @@
-from airflow.plugins_manager import AirflowPlugin
+# from airflow.plugins_manager import AirflowPlugin
 from airflow.models.baseoperator import BaseOperator
 from airflow.hooks.http_hook import HttpHook
 from airflow.utils.decorators import apply_defaults
@@ -30,6 +30,6 @@ class LaunchLibraryOperator(BaseOperator):
         http_response = http_object.run(self.endpoint, data=self.params)
         return http_response
 
-class LaunchLibraryPlugin(AirflowPlugin):
-    name = "launchlibrary_plugin"
-    operators = [LaunchLibraryOperator]
+# class LaunchLibraryPlugin(AirflowPlugin):
+#     name = "launchlibrary_plugin"
+#     operators = [LaunchLibraryOperator]

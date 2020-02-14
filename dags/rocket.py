@@ -4,7 +4,7 @@ import datetime
 from datetime import timedelta
 import airflow
 from airflow.models import DAG
-from airflow.operators import LaunchLibraryOperator
+from operators.get_rockets import LaunchLibraryOperator
 
 args = {
     'owner': 'JDreijer',
