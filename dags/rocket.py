@@ -23,8 +23,8 @@ t1 = LaunchLibraryOperator(
     launch_conn_id='launchlibrary',
     endpoint='launch',
     params={"startdate":"{{ ds }}", "enddate": "{{ tomorrow_ds }}"},
-    result_path='postgres_dump.csv',
-    result_filename='google_cloud_storage_default',
+    result_bucket='mydata',
+    result_key='/data/rocket_launches/ds{{ ds }}/launches.json',
     dag=dag
 )
 
