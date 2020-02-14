@@ -12,7 +12,8 @@ args = {
     'owner': 'JDreijer',
     'start_date': datetime(2019, 11, 26),
     'end_date': datetime(2019, 11, 28),
-    'schedule_interval': '@daily'
+    'schedule_interval': '@daily',
+    'depends_on_past': False
 }
 
 dag = DAG(
