@@ -4,9 +4,8 @@ from airflow.hooks.http_hook import HttpHook
 from airflow.utils.decorators import apply_defaults
 
 class LaunchLibraryOperator(BaseOperator):
-    template_fields = ['analyzers_object', 'artifacts_object']
-    # template_fields = ['created_gt', 'created_lt', ]
-    # template_ext = ()
+    template_fields = ['params']
+    template_ext = ()
 
     @apply_defaults
     def __init__(
