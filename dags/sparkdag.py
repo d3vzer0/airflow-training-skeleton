@@ -4,6 +4,10 @@ import datetime
 from datetime import timedelta
 from airflow.models import DAG
 from airflow.contrib.operators.postgres_to_gcs_operator import PostgresToGoogleCloudStorageOperator
+from airflow.contrib.operators.dataproc_operator import DataprocClusterCreateOperator
+from airflow.contrib.operators.dataproc_operator import DataprocClusterDeleteOperator
+from airflow.contrib.operators.dataproc_operator import DataProcPySparkOperator
+
 from operators.http_to_gcs import HttpToGcsOperator
 import pendulum
 from datetime import datetime
@@ -40,5 +44,29 @@ t2 = HttpToGcsOperator(
     dag=dag
 )
 
-t1 
-t2 
+t3 = DataprocClusterCreateOperator(
+    task_id='create_dataproc',
+    cluster_name='analyse-pricing-{{ ds }}',
+    project_id='afspfeb3-07be9fd3ffa2687ea1891',
+    num_workers=2,
+    zone='europe-west4-a',
+    dag=dag
+)
+
+t4 = DataProcPySparkOperator(
+    dag=dag,
+    task_id='run_spark_job',
+    main='gs://spark_bucket_jd/build_statistics.py',
+    cluster_name='analyse-pricing-{{ ds }}',
+    job_name='analyse-pricing'
+)
+
+tx = DataprocClusterDeleteOperator(
+    dag=dag,
+    task_id='delete_dataproc',
+    cluster_name='analyse-pricing-{{ ds }}',
+    project_id='afspfeb3-07be9fd3ffa2687ea1891'
+)
+
+[t1, t2] >> t3 >> t4 >> tx
+
