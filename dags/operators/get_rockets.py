@@ -1,8 +1,11 @@
+from airflow.plugins_manager import AirflowPlugin
 from airflow.models.baseoperator import BaseOperator
 from airflow.hooks.http_hook import HttpHook
 from airflow.utils.decorators import apply_defaults
 
 class LaunchLibraryOperator(BaseOperator):
+    # template_fields = ['created_gt', 'created_lt', ]
+    # template_ext = ()
 
     @apply_defaults
     def __init__(
@@ -26,3 +29,7 @@ class LaunchLibraryOperator(BaseOperator):
         http_object = HttpHook('GET', http_conn_id=self.launch_conn_id)
         http_response = http_object.run(self.endpoint, data=self.params)
         return http_response
+
+class LaunchLibraryPlugin(AirflowPlugin):
+    name = "launchlibrary_plugin"
+    operators = [LaunchLibraryOperator]
