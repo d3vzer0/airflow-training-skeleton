@@ -3,6 +3,7 @@ from airflow.models import BaseOperator
 from airflow.hooks.http_hook import HttpHook
 from airflow.utils.decorators import apply_defaults
 from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
+import json
 
 class LaunchLibraryOperator(BaseOperator):
     template_fields = ['params', 'result_key']
@@ -31,18 +32,10 @@ class LaunchLibraryOperator(BaseOperator):
         http_response = http_object.run(self.endpoint, data=self.params)
         json_response = http_response.json()
         with open('/tmp/rockets.json', 'w') as rocketsfile:
-            rocketsfile.write(json_response)
+            rocketsfile.write(json.dumps(json_response))
     
         gcs_hook = GoogleCloudStorageHook()
         gcs_hook.upload(bucket=self.result_bucket, object=self.result_key, filename='/tmp/rockets.json')
-        print(self.params)
-        print(self.args)
-        print(self.kwargs)
-        print(self.result_key)
-        print(self.result_bucket)
-        # with open('')
-        print(http_response)
-
         return http_response
 
 # class LaunchLibraryPlugin(AirflowPlugin):
