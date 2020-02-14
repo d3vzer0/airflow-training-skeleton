@@ -22,7 +22,7 @@ dag = DAG(
 t1 = PostgresToGoogleCloudStorageOperator(
     task_id='from_pg_to_gcs',
     postgres_conn_id='postgres_default',
-    sql='select * from land_registry_price_paid_uk WHERE transfer_date="{{ ds }}"',
+    sql='select * from land_registry_price_paid_uk WHERE transfer_date = \'{{ ds }}\'',
     bucket='spark_bucket_jd',
     filename='postgres-transfers-{{ ds }}.csv',
     google_cloud_storage_conn_id='google_cloud_storage_default',
