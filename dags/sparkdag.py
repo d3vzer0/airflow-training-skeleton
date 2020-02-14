@@ -4,7 +4,8 @@ import datetime
 from datetime import timedelta
 from airflow.models import DAG
 from airflow.contrib.operators.postgres_to_gcs_operator import PostgresToGoogleCloudStorageOperator
-
+from operators.http_to_gcs import HttpToGcsOperator
+import pendulum
 
 args = {
     'owner': 'JDreijer',
@@ -29,4 +30,15 @@ t1 = PostgresToGoogleCloudStorageOperator(
     dag=dag
 )
 
-t1
+
+t2 = HttpToGcsOperator(
+    task_id='from_api_to_gcs',
+    endpoint='history?start_at={{ yesterday_ds }}&end_at={{ ds }}&symbols=EUR&base=GBP',
+    gcs_path='api-exchangerate-{{ ds }}.json',
+    gcs_bucket='spark_bucket_jd',
+    http_conn_id='exchange_rates_api',
+    dag=dag
+)
+
+t1 
+t2 
